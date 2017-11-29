@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var dbLogin = require("../auth/dbLogin");
 
+/*
+var dbLogin = require("../auth/dbLogin");
 var apiKey = dbLogin.apiKey || process.env.APIKEY;
+*/
+
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -11,7 +14,7 @@ router.get("/", function(req, res, next) {
     
     res.render("index", {title: "Nightlife Coordination App", 
                          user: user,
-                         apiKey: apiKey
+                         apiKey: process.env.APIKEY
     });
 });
 

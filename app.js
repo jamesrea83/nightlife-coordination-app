@@ -17,12 +17,16 @@ var auth = require("./routes/auth");
 var main = require("./routes/main");
 
 var app = express();
+
+/*
 var DBCONFIG = dbLogin.dbLogin || process.env.DBCONFIG;
+
+*/
 
 //mongoose setup
 mongoose.Promise = global.Promise;
 
-mongoose.connect(DBCONFIG, { useMongoClient: true })
+mongoose.connect(process.env.DBCONFIG, { useMongoClient: true })
   .then(() => console.log("db connection successful"))
   .catch((err) => console.error(err));
 
