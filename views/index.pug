@@ -1,11 +1,39 @@
 extends layout
 
+block head 
+    link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel='stylesheet', href='stylesheets/index.css')
+    
 block content
-  h1= title
-  p Welcome to #{title}
 
-  a(href="/users") Users
-  <br>
-  a(href="/main") Main
-
-  p= user
+    script.
+        initialLocationsData="#{initialLocationsData}"
+        user="#{user}"
+    script(src="javascripts/index.js")   
+    
+    div(class="container")
+        nav(class="navbar navbar-default")
+            div(class="navbar-brand") Nightlife Coordination App
+            div(class="navbar-brand pull-right") 
+                #user
+                    if user
+                        div Welcome #{user}
+                        a(href="/auth/logout" class="pull-right") Logout
+                    else
+                        a(href="/auth/login") Please log in
+                        
+        div(class="logo")
+            <i class="fa fa-map-marker"></i>
+            <i class="fa fa-glass"></i>
+        
+        div(class="input-container")
+            input(id="pac-input" class="controls" type="text" placeholder="Search Box")
+            p Enter a location to search for bars, and see how many other people are going!
+        
+        div(id="map")
+        table(id="results" class="table")
+        
+        
+        
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxM6jbCgqCjT-Hhm0fhiZSIfYkcGLz0TQ&libraries=places"></script>

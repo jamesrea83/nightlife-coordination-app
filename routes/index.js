@@ -2,14 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get("/", function(req, res, next) {
     var user;
-    if (req.isAuthenticated()) {
-        user = req.user.doc.name;
-    } else {
-        user = "Not logged in";
-    }
-  res.render('index', { title: 'Express', user: user});
+    (req.isAuthenticated() ? user = req.user.doc.name : user = null)
+    
+    res.render("index", {title: "Nightlife Coordination App", user: user});
 });
 
 module.exports = router;

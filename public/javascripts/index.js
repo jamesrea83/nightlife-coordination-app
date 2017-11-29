@@ -1,12 +1,6 @@
 $(document).ready(function() {
 
-    if (user) {
-        $("#user").text(user);
-    } else {
-        $("#user").text("Not logged in!");
-    }
-    
-    /* BUTTON CONTROLS */
+/* BUTTON CONTROLS */
     
     var buttonState = [];
     
@@ -74,21 +68,41 @@ $(document).ready(function() {
 
 
 
-    /* Map & Location API setup */
+/* AUTOCOMPLETE BOX SETUP */
     
-    navigator.geolocation.getCurrentPosition(function(position) {
-        console.log(position.coords.latitude, position.coords.longitude);
+    var input = document.getElementById('pac-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', function() {
+        var location = new google.maps.LatLng(autocomplete.getPlace().geometry.location.lat(), autocomplete.getPlace().geometry.location.lng());
+        var request = {
+            location: location,
+            radius: '5000',
+            type: ['bar']
+        };
+        
+        service.nearbySearch(request, callback);
     })
+       
+       
+            
+    
+/* MAP & LOCATION API SETUP */
 
     var service = new google.maps.places.PlacesService(document.createElement('div'));
     var myLocation = new google.maps.LatLng(50.7680, 0.2905);
 
+    //service.nearbySearch(request, callback);
+
+    
+/* INITALISE MAP */
+        
     function initMap(results) {
         var map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,
-            center: myLocation
+            center: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())
         });
-
+        
+        
         results.forEach(function(elem) {
             var marker = new google.maps.Marker({
                 position: {
@@ -117,47 +131,35 @@ $(document).ready(function() {
     }
     
     
-    
-    
-    /* Google Locations API call */
-    
-    var request = {
-        location: myLocation,
-        radius: '5000',
-        type: ['restaurant']
-    };
 
+    
+/* GOOGLE LOCATIONS API CALL */
+    
     function callback(results, status) {
+        $("#results").empty();
         results.forEach(function(elem) {
-            $("#results").append("<li>" +
-                "<img src='" + elem.photos[0].getUrl({
-                    'maxWidth': 100,
-                    'maxHeight': 100
-                }) + "'>" +
-                elem.name +
-                "<span>visitors: <span id='" + elem.id + "-counter'>0</span></span>" +
-                "<button class='location-btn btn btn-default " +
+            $("#results").append("<tr>" +
+                "<td class='image-cell'><img src='" + (elem.photos ? elem.photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100}) : "") + "'></td>" +
+                "<td class='title-cell'>" + elem.name + "</td>" +
+                "<td><span>visitors: <span id='" + elem.id + "-counter'>0</span></span></td>" +
+                "<td><button class='location-btn btn btn-default " +
                 (user ? "" : "disabled") + "'" +
                 "id='" + elem.id + "'>Click to say I'm going</button>" +
-                "</li>");
+                "</td></tr>");
 
         })
 
     $(".location-btn").click(function(event) {
       voteButtonHandler(event);
     })
-
-
         initMap(results)
         updateCounters();
     }
 
-    service.nearbySearch(request, callback);
+    
+    
 
-
-
-
-    /* update vote counters */
+/* UPDATE VOTE COUNTERS */
     
     function updateCounters() {
         $.ajax({
@@ -176,5 +178,5 @@ $(document).ready(function() {
     }
     
     
-    /* end */
+    /* END */
 })
