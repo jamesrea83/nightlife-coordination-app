@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
-var dbLogin = require("./auth/dbLogin");
 var passport = require("passport");
 var session = require("express-session");
 
@@ -19,8 +18,8 @@ var main = require("./routes/main");
 var app = express();
 
 /*
+var dbLogin = require("./auth/dbLogin");
 var DBCONFIG = dbLogin.dbLogin || process.env.DBCONFIG;
-
 */
 
 //mongoose setup
