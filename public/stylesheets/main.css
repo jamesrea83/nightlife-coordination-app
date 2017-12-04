@@ -1,23 +1,5 @@
 /* lessc public/css/styles.less public/css/main.css */
 
-#map {
-  height: 400px;
-  width: 90%;
-}
-
-#results {
-  list-style-type: none;
-}
-#results li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: solid 1px;
-  margin: 2px 0;
-  padding: 0 20px;
-}
-
-
-.location-btn .btn .btn-default .disabled {
-  cursor: not-allowed !important;
+* {
+  font-family: 'Nunito', sans-serif;
 }

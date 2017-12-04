@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+
+
 /* BUTTON CONTROLS */
     
     var buttonState = [];
@@ -66,8 +68,6 @@ $(document).ready(function() {
       };
 
 
-
-
 /* AUTOCOMPLETE BOX SETUP */
     
     var input = document.getElementById('pac-input');
@@ -97,11 +97,13 @@ $(document).ready(function() {
 /* INITALISE MAP */
         
     function initMap(results) {
+        
         var map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,
             center: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())
         });
         
+
         
         results.forEach(function(elem) {
             var marker = new google.maps.Marker({
@@ -110,14 +112,16 @@ $(document).ready(function() {
                     lng: elem.geometry.location.lng()
                 },
                 map: map,
+                animation: google.maps.Animation.DROP
             })
             var infowindow = new google.maps.InfoWindow({
                 content: elem.name + "<br>" +
-                    "Rating: " + elem.rating + "<br>" +
-                    "<span>visitors: <span id='" + elem.id + "-counter'>0</span></span><br>" + 
+                    "Rating " + elem.rating + "<br>" +
+                    "<span>Visitors <span id='" + elem.id + "-counter'>0</span></span><br>" + 
                     "<button class='location-btn btn btn-default " +
-                    (user ? "" : "disabled") + "'" +
-                    "id='" + elem.id + "'>Click to say I'm going</button>"
+                    (user ? "'" : "disabled'") + 
+                    "id='" + elem.id + "'>" +
+                     (user ? "Click to say I'm going" : "Please log in to vote") + "</button>"
             });
             marker.addListener('click', function() {
                 infowindow.open(map, marker);
@@ -128,6 +132,7 @@ $(document).ready(function() {
                 updateButtons();
             });
         })
+        $("#map").addClass("shadow");
     }
     
     
@@ -137,23 +142,34 @@ $(document).ready(function() {
     
     function callback(results, status) {
         $("#results").empty();
-        results.forEach(function(elem) {
-            $("#results").append("<tr>" +
-                "<td class='image-cell'><img src='" + (elem.photos ? elem.photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100}) : "") + "'></td>" +
-                "<td class='title-cell'>" + elem.name + "</td>" +
-                "<td><span>visitors: <span id='" + elem.id + "-counter'>0</span></span></td>" +
-                "<td><button class='location-btn btn btn-default " +
-                (user ? "" : "disabled") + "'" +
-                "id='" + elem.id + "'>Click to say I'm going</button>" +
-                "</td></tr>");
+        $("#no-results").html("");
+        $("#map").empty().removeClass("shadow");
+        console.log(results);
+        if (results.length === 0) {
+            $("#no-results").html("<h3>No results found</h3>");
+            return;
+        } else {
+            results.forEach(function(elem) {
+                $("#results").append("<li class='shadow'>" +
+                    "<img src='" + (elem.photos !== undefined ? elem.photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100}) : "/images/no-img.png") + "'>" +
+                    "<span class='location-name'>" + elem.name + "</span>" +
+                    "<span class='visitors'>Visitors <span id='" + elem.id + "-counter'>0</span></span>" +
+                    "<button class='location-btn btn btn-default " +
+                    (user ? "'" : "disabled'") +
+                    "id='" + elem.id + "'>" + 
+                    (user ? "Click to say I'm going" : "Please log in to vote") + "</button>" +
+                    "</li>");
+    
+            })
+    
+            $(".location-btn").click(function(event) {
+              voteButtonHandler(event);
+            })
+        
+            initMap(results)
+            updateCounters();
 
-        })
-
-    $(".location-btn").click(function(event) {
-      voteButtonHandler(event);
-    })
-        initMap(results)
-        updateCounters();
+        }
     }
 
     

@@ -20,18 +20,21 @@ block content
                         div Welcome #{user}
                         a(href="/auth/logout" class="pull-right") Logout
                     else
-                        a(href="/auth/login") Please log in
+                        a(href="/auth/github") Please log in with 
+                            i(class="fa fa-github")
                         
         div(class="logo")
             <i class="fa fa-map-marker"></i>
             <i class="fa fa-glass"></i>
         
-        div(class="input-container")
+        div(class="input-container shadow")
             input(id="pac-input" class="controls" type="text" placeholder="Search Box")
             p Enter a location to search for bars, and see how many other people are going!
-        
+            if !user
+                p Log in to let everyone else see where you're going
+        div(id="no-results")
         div(id="map")
-        table(id="results" class="table")
+        ul(id="results")
         
         
         
