@@ -15,7 +15,6 @@ $(document).ready(function() {
     }
     
     var buttonStateToggle = function(id, toggle) {
-      console.log(id);
       if (toggle) {
         buttonState = buttonState.filter(function(elem) {
           return elem !== id;
@@ -40,7 +39,7 @@ $(document).ready(function() {
               if (!buttonStateChecker(event.target.id)) {
                   $.ajax({
                       type: "POST",
-                      url: "/main",
+                      url: "/",
                       data: {
                           googleID: event.target.id
                       },
@@ -52,7 +51,7 @@ $(document).ready(function() {
               } else {
                   $.ajax({
                       type: "DELETE",
-                      url: "/main",
+                      url: "/",
                       data: {
                           googleID: event.target.id
                       },
@@ -144,7 +143,6 @@ $(document).ready(function() {
         $("#results").empty();
         $("#no-results").html("");
         $("#map").empty().removeClass("shadow");
-        console.log(results);
         if (results.length === 0) {
             $("#no-results").html("<h3>No results found</h3>");
             return;
@@ -180,7 +178,7 @@ $(document).ready(function() {
     function updateCounters() {
         $.ajax({
             type: "GET",
-            url: "/main/request",
+            url: "/request",
             success: function(data) {
                 data.forEach(function(elem) {
                     $("span").each(function() {

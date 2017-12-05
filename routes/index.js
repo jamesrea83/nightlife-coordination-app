@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var locationsController = require("../controllers/locationsController");
 
 var dbLogin = require("../auth/dbLogin");
 var apiKey = dbLogin.apiKey || process.env.APIKEY;
@@ -17,5 +17,18 @@ router.get("/", function(req, res, next) {
                          apiKey: apiKey
     });
 });
+
+
+/* Get exisiting location data */
+router.get("/request", locationsController.get);
+
+
+/* Visitor increment */
+router.post("/", locationsController.increment);
+
+
+/* Visitor decerement */
+router.delete("/", locationsController.decrement);
+
 
 module.exports = router;

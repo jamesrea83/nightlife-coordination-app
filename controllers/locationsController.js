@@ -57,25 +57,3 @@ exports.get = function(req, res, next) {
 
 
 
-
-/* findOneAndUpdate syntax
-
-    var query = {},
-        update = { expire: new Date() },
-        options = { upsert: true, new: true, setDefaultsOnInsert: true };
-    
-    // Find the document
-    Model.findOneAndUpdate(query, update, options, function(error, result) {
-        if (error) return;
-    
-        // do something with the document
-    });
-*/
-
-
-    /*
-    Kitten.findOne({_id: "595b6fb63fa8760f2389ceb6"}, function(err, result) {
-        if (err) return console.error(err);
-        console.log(result)
-    })
-    */
