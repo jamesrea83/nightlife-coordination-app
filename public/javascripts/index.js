@@ -1,29 +1,23 @@
 $(document).ready(function() {
 
-/* check for previous search */
+/* CHECK FOR PREVIOUS SERACH */
 
-var lastlocation = null;
-
-if (user) {
-    $.ajax({
-        type: "GET",
-        url: "/lastlocation",
-        success: function(data) {
-            lastlocation = new google.maps.LatLng(JSON.parse(data).lat, JSON.parse(data).lng);
-
-            
-        var request = {
-            location: lastlocation,
-            radius: '5000',
-            type: ['bar']
-        };
-        service.nearbySearch(request, callback);
-            
-            
-            
-        }
-    })
-}
+    if (user) {
+        $.ajax({
+            type: "GET",
+            url: "/lastlocation",
+            success: function(data) {
+                var lastlocation = new google.maps.LatLng(JSON.parse(data).lat, JSON.parse(data).lng);
+    
+                var request = {
+                    location: lastlocation,
+                    radius: '5000',
+                    type: ['bar']
+                };
+                service.nearbySearch(request, callback);
+            }
+        });
+    }
 
 
 /* BUTTON CONTROLS */
@@ -220,6 +214,4 @@ if (user) {
         })
     }
     
-    
-    /* END */
 })

@@ -4,9 +4,9 @@ var User = require('../models/User');
 
 
 var dbConfig = require("./dbLogin")
-var clientID = dbConfig.clientID || process.env.CLIENTID;
-var clientSecret = dbConfig.clientSecret || process.env.CLIENTSECRET;
-var callbackURL = dbConfig.callbackURL || process.env.CALLBACKURL;
+var clientID = process.env.CLIENTID;
+var clientSecret = process.env.CLIENTSECRET;
+var callbackURL = process.env.CALLBACKURL;
 
 
 

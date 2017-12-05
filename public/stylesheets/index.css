@@ -127,10 +127,6 @@ body {
     overflow: hidden;
 }
 
-#results li .location-name {
-    width: 40%;
-}
-
 #results li .visitors {
     margin-right: 10px;
 }
