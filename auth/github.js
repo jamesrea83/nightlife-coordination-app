@@ -3,7 +3,7 @@ var passport = require('passport')
 var User = require('../models/User');
 
 
-var dbConfig = require("./dbLogin")
+//var dbConfig = require("./dbLogin")
 var clientID = process.env.CLIENTID;
 var clientSecret = process.env.CLIENTSECRET;
 var callbackURL = process.env.CALLBACKURL;
