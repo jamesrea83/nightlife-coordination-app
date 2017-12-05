@@ -122,13 +122,13 @@ body {
 }
 
 #results li img {
-    width: 30%;
+    min-width: 30%;
     height: 100%;
     overflow: hidden;
 }
 
 #results li .visitors {
-    margin-right: 10%;
+
 }
 
 #results li .location-btn {
