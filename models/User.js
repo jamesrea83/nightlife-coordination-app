@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var NightlifeUserSchema = new mongoose.Schema({
     name: String,
     userid: String,
+    lastLocation: Object,
     updated_at: { type: Date, default: Date.now },
 })
 

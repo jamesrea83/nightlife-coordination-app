@@ -1,5 +1,29 @@
 $(document).ready(function() {
 
+/* check for previous search */
+
+var lastlocation = null;
+
+if (user) {
+    $.ajax({
+        type: "GET",
+        url: "/lastlocation",
+        success: function(data) {
+            lastlocation = new google.maps.LatLng(JSON.parse(data).lat, JSON.parse(data).lng);
+
+            
+        var request = {
+            location: lastlocation,
+            radius: '5000',
+            type: ['bar']
+        };
+        service.nearbySearch(request, callback);
+            
+            
+            
+        }
+    })
+}
 
 
 /* BUTTON CONTROLS */
@@ -73,12 +97,20 @@ $(document).ready(function() {
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.addListener('place_changed', function() {
         var location = new google.maps.LatLng(autocomplete.getPlace().geometry.location.lat(), autocomplete.getPlace().geometry.location.lng());
+        if (user) {
+            $.ajax({
+                type: "POST",
+                url: "/lastlocation",
+                data: {
+                    lastlocation: JSON.stringify(location)
+                }
+            })
+        }
         var request = {
             location: location,
             radius: '5000',
             type: ['bar']
         };
-        
         service.nearbySearch(request, callback);
     })
        
@@ -88,15 +120,12 @@ $(document).ready(function() {
 /* MAP & LOCATION API SETUP */
 
     var service = new google.maps.places.PlacesService(document.createElement('div'));
-    var myLocation = new google.maps.LatLng(50.7680, 0.2905);
 
-    //service.nearbySearch(request, callback);
 
     
 /* INITALISE MAP */
         
     function initMap(results) {
-        
         var map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,
             center: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())
