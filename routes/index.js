@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var locationsController = require("../controllers/locationsController");
 var userController = require("../controllers/userController");
-var apiKey = process.env.APIKEY;
-//var dbLogin = require("../auth/dbLogin");
+var dbLogin = require("../auth/dbLogin");
+var apiKey = dbLogin.apiKey || process.env.APIKEY;
 
 
 

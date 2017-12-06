@@ -20,8 +20,9 @@ block content
                         div Welcome #{user}
                         a(href="/auth/logout" class="pull-right") Logout
                     else
-                        a(href="/auth/github" title="Log in using Github") Please log in 
-                            i(class="fa fa-github")
+                        a(href="/auth/github" title="Log in using Github")
+                            div(class="btn btn-login") Log ln 
+                                span(class="fa fa-github")
                         
         div(class="logo")
             <i class="fa fa-map-marker"></i>
@@ -32,10 +33,12 @@ block content
             p Enter a location to search for bars, and see how many other people are going!
             if !user
                 p Log in to let everyone else see where you're going
+                a(href="/auth/github" title="Log in using Github")
+                    div(class="btn btn-login") Log ln 
+                        span(class="fa fa-github")
         div(id="no-results")
         div(id="map")
-        div(class="row")
-            ul(id="results" class="col-xs-12")
+        ul(id="results")
         
         
         

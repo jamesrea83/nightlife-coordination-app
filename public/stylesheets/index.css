@@ -34,9 +34,13 @@ body {
     text-decoration: none;
 }
 
-.navbar-brand.pull-right a .fa-github {
-    font-size: 1.5em;
+.btn-login {
+    background-color: #FD7567;
     color: black;
+}
+
+.btn-login span {
+    font-size: 1.2em;
 }
 
 .logo {
@@ -93,7 +97,7 @@ body {
 
 #map {
     height: 400px;
-    width: 90%;
+    width: 98%;
     margin-top: 40px;
 }
 
@@ -112,36 +116,73 @@ body {
 
 #results li {
     background-color: #ffffff;
-    height: 100px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    padding-right: 5px;
-}
-
-#results li img {
-    min-width: 30%;
-    height: 100%;
-    overflow: hidden;
-}
-
-#results li .visitors {
-
-}
-
-#results li .location-btn {
-    margin: 0 5px;
 }
 
 
-@media screen 
-  and (device-width: 320px) 
-  and (device-height: 640px) 
-  and (-webkit-device-pixel-ratio: 2) 
-  and (orientation: portrait) {
-    .container {
-        max-width: 320px;
+
+
+@media screen and (max-width: 400px)  {
+    .input-container {
+        width: 98%;
+        padding: 5px;
+    }
+
+    #results li {
+        width: 300px;
+        flex-direction: row;
+        margin: 20px auto 0 auto;
+        padding-bottom: 20px;
+    }
+    #map {
+        width: 310px;
+    }
+    #results li img {
+        width: 100%;
+        max-height: 200px;
+    }
+    #results li .location-name {
+        display: block;
+        margin-top: 10px;
+    }
+    #results li .visitors {
+        display: block;
+        margin-top: 10px;
+    }
+    #results li .location-btn {
+       margin-top: 10px;
+    }
+}
+
+
+
+
+
+@media screen and (min-width: 401px)  {
+    #results li {
+        height: 100px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding-right: 5px;
+    }
+    #results li img {
+        min-width: 30%;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    #results li .location-name {
+        width: 40%;
+        padding: 0 5px;
+    }
+    
+     #results li .visitors {
+         margin: 0 5px;
+     }
+    
+    #results li .location-btn {
+        margin: 0 5px;
     }
 }

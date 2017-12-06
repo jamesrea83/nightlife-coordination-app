@@ -16,8 +16,8 @@ var auth = require("./routes/auth");
 var app = express();
 
 
-//var dbLogin = require("./auth/dbLogin");
-var DBCONFIG = process.env.DBCONFIG;
+var dbLogin = require("./auth/dbLogin");
+var DBCONFIG = dbLogin.dbLogin || process.env.DBCONFIG;
 
 
 //mongoose setup
